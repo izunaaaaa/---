@@ -37,7 +37,7 @@ private:
 
 
 signals:
-    void server_connected(QString);
+    void server_connected(QString,QString);
 
 
 

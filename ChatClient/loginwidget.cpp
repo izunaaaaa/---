@@ -22,8 +22,6 @@ LoginWidget::LoginWidget(QWidget *parent) :
         ui->lineEdit->setValidator(ipValidator);
         client = new QTcpSocket();
         connect(client,SIGNAL(connected()),this,SLOT(connected()));
-
-
 }
 
 LoginWidget::~LoginWidget()
@@ -43,8 +41,6 @@ void LoginWidget::on_join_btn_clicked()
                             client->connectToHost(user_ip,user_port);
                                qDebug() <<  "try to connect..";
                                        }
-
-
                     else {
                           QMessageBox::critical(this,"오류","이름 입력");
                           qDebug() << user_name;
@@ -54,9 +50,6 @@ void LoginWidget::on_join_btn_clicked()
                  QMessageBox::critical(this,"오류","포트 번호 0416");
                  qDebug()<<user_port;
              }
-
-
-
 }
 
 
@@ -69,8 +62,8 @@ void LoginWidget::connected()
 {
     qDebug() << "success connect";
     QString user_name = ui->lineEdit_2->text();
-    emit server_connected(user_name);
+    QString user_ip = ui->lineEdit -> text();
+    emit server_connected(user_name,user_ip);
     this->hide();
-
 }
 

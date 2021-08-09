@@ -4,6 +4,7 @@
 #include <QFontComboBox>
 #include "loginwidget.h"
 #include "server.h"
+#include <QLabel>
 
 Widget::Widget(QWidget *parent) : QWidget(parent),
    ui(new Ui::Widget)
@@ -12,7 +13,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent),
     loginWidget = new LoginWidget();
     server = new Server();
     loginWidget ->show();
-    connect(loginWidget , SIGNAL(server_connected(QString)), server ,SLOT(server_connected(QString)));
+    connect(loginWidget , SIGNAL(server_connected(QString,QString)), server ,SLOT(server_connected(QString,QString)));
     connect(server, SIGNAL(connected()),this,SLOT(chatstart()));
 }
 
@@ -45,4 +46,5 @@ void Widget::on_fontComboBox_currentFontChanged(const QFont &f) // 폰트 변경
 void Widget::chatstart()
 {
     this -> window()-> show();
+    // ui->count_user->count_user;  //차후 유저 카운트
 }

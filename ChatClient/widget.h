@@ -25,6 +25,7 @@ private slots:
     void on_clear_btn_clicked();
     void on_fontComboBox_currentFontChanged(const QFont &f);
     void chatstart();
+    void count_user();
 
 
 private:

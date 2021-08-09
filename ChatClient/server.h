@@ -24,7 +24,7 @@ public:
 private slots:
     void on_chat_btn_clicked();
     void on_exit_btn_clicked();
-    void server_connected(QString user_name);
+    void server_connected(QString user_name, QString user_ip);
 
 signals:
     void connected();
