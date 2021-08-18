@@ -10,9 +10,6 @@ int main(int argc, char *argv[])
     Widget w;
     w.setWindowTitle("chat");
     w.hide();
-
-
-
     return a.exec();
 
 }

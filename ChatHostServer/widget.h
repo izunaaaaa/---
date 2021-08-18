@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QTcpServer>
 #include <QTcpSocket>
+#include <QList>
+#include "processthreadsapi.h"
 
 namespace Ui {
 class Widget;
@@ -21,14 +23,26 @@ private:
     Ui::Widget *ui;
     QTcpServer *tcpserver;
     QTcpSocket *client;
-    void sendValue(QString name, QString chat);
     void TcpServer();
-
-    int connect_user = 0; // 접속 유저 수
+    QString user_name;
+    QString user_ip;
+    QString user_send_data;
+    QString server_send_data;
+    QString chat;
+    QString user;
+    int count;
+    QList<QTcpSocket*> connect_user;
+    QList<QString> connect_name;
 public slots:
     void newConnection();
     void disconnected();
-    void readData();
+    void readInfo();
+
+
+private slots:
+    void on_pushButton_clicked();
+    void on_lineEdit_returnPressed();
+
 };
 
 #endif // WIDGET_H

@@ -25,7 +25,8 @@ private slots:
     void on_clear_btn_clicked();
     void on_fontComboBox_currentFontChanged(const QFont &f);
     void chatstart();
-    void count_user();
+    void chat_history(QString name, QString chat);
+    void disconnect();
 
 
 private:
@@ -33,6 +34,8 @@ private:
     LoginWidget *loginWidget;
     Server *server;
     QString name;
+signals:
+    void send_server(QString);
 };
 
 #endif // WIDGET_H

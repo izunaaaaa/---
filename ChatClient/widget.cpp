@@ -1,5 +1,6 @@
 #include "widget.h"
 #include "ui_widget.h"
+#include "ui_server.h"
 #include <QPushButton>
 #include <QFontComboBox>
 #include "loginwidget.h"
@@ -13,8 +14,12 @@ Widget::Widget(QWidget *parent) : QWidget(parent),
     loginWidget = new LoginWidget();
     server = new Server();
     loginWidget ->show();
-    connect(loginWidget , SIGNAL(server_connected(QString,QString)), server ,SLOT(server_connected(QString,QString)));
+    connect(loginWidget , SIGNAL(server_connected()), server ,SLOT(server_connected()));
     connect(server, SIGNAL(connected()),this,SLOT(chatstart()));
+    connect(loginWidget,SIGNAL(user_list(QString)),server, SLOT(receive_user(QString)));
+    connect(loginWidget, SIGNAL(user_chat(QString,QString)),this, SLOT(chat_history(QString,QString)));
+    connect(this, SIGNAL(send_server(QString)),loginWidget,SLOT(send_server(QString)));
+    connect(loginWidget,SIGNAL(disconnect_signal()),this,SLOT(disconnect()));
 }
 
 Widget::~Widget()
@@ -24,8 +29,9 @@ Widget::~Widget()
 void Widget::on_lineEdit_returnPressed() // 엔터키 이벤트
 {
     QString str = ui->lineEdit->text();
-    ui ->listWidget -> addItem(" : " + str) ;
     ui->lineEdit->clear();
+    emit send_server(str);
+    ui->listWidget->scrollToBottom();
 }
 void Widget::on_send_btn_clicked() // 보내기 버튼 이벤트
 {
@@ -45,6 +51,19 @@ void Widget::on_fontComboBox_currentFontChanged(const QFont &f) // 폰트 변경
 }
 void Widget::chatstart()
 {
+    ui->listWidget->clear();
     this -> window()-> show();
-    // ui->count_user->count_user;  //차후 유저 카운트
+    QString text = "서버 연결 상태 ";
+    ui->label->setText(text + "on");
+}
+
+void Widget::chat_history(QString name, QString chat)
+{
+    ui ->listWidget -> addItem(name + " : " + chat) ;
+}
+
+void Widget::disconnect()
+{
+    QString text = "서버 연결 상태 ";
+    ui->label->setText(text + "off");
 }

@@ -26,6 +26,9 @@ private slots:
     void on_join_btn_clicked();
     void on_exit_btn_clicked();
     void connected();
+    void receive_user();
+    void send_server(QString chat);
+    void disconnect();
 
 
 private:
@@ -33,11 +36,17 @@ private:
     QString user_ip;
     QString user_name;
     QString user_port;
+    QString server_data;
+    QString connected_user_info;
+    QString chat;
 
 
 
 signals:
-    void server_connected(QString,QString);
+    void server_connected();
+    void user_list(QString);
+    void user_chat(QString, QString);
+    void disconnect_signal();
 
 
 

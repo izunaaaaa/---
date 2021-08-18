@@ -24,14 +24,15 @@ public:
 private slots:
     void on_chat_btn_clicked();
     void on_exit_btn_clicked();
-    void server_connected(QString user_name, QString user_ip);
+    void server_connected();
+    void receive_user(QString user_list);
 
 signals:
     void connected();
 
 private:
     Ui::Server *ui;
-
+    LoginWidget *loginWidget;
    };
 
 #endif // SERVER_H
